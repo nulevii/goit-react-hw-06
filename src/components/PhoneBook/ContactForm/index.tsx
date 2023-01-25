@@ -1,46 +1,40 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import style from '../style.module.css'
+import { addContact } from '../../../store/features/contacts/contactsSlice'
+import { useAppDispatch } from '../../../store/hooks'
 
-interface ContactFormProps {
-  onAddContact: (name: string, number: string) => void
-}
+function ContactForm (): JSX.Element {
+  const dispatch = useAppDispatch()
 
-class ContactForm extends React.Component<ContactFormProps> {
-  state = {
-    name: '',
-    number: ''
+  const [name, setName] = useState('')
+  const [number, setNumber] = useState('')
+
+  const onInputName = (e: ChangeEvent<HTMLInputElement>): void => {
+    setName(e.target.value)
   }
 
-  onInputName = (e: ChangeEvent<HTMLInputElement>): void => {
-    this.setState({
-      name: e.target.value
-    })
+  const onNumberName = (e: ChangeEvent<HTMLInputElement>): void => {
+    setNumber(e.target.value)
   }
 
-  onNumberName = (e: ChangeEvent<HTMLInputElement>): void => {
-    this.setState({
-      number: e.target.value
-    })
-  }
-
-  onSubmitForm = (e: React.FormEvent<HTMLFormElement>): void => {
+  const onSubmitForm = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
-    this.props.onAddContact(this.state.name, this.state.number)
-    this.setState({ name: '', number: '' })
+    dispatch(addContact({ name, number }))
+    setName('')
+    setNumber('')
   }
 
-  render (): JSX.Element {
-    return (
+  return (
       <form
-        onSubmit={this.onSubmitForm}
+        onSubmit={onSubmitForm}
         className={style.phoneBookForm}
         action="submit"
       >
         <label>
           <p className={style.inputCaption}>Name</p>
           <input
-            onChange={this.onInputName}
-            value={this.state.name}
+            onChange={onInputName}
+            value={name}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -52,8 +46,8 @@ class ContactForm extends React.Component<ContactFormProps> {
         <label>
           <p className={style.inputCaption}>Number</p>
           <input
-            onChange={this.onNumberName}
-            value={this.state.number}
+            onChange={onNumberName}
+            value={number}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -63,8 +57,7 @@ class ContactForm extends React.Component<ContactFormProps> {
         </label>
         <button className={style.cyberButton}>ADD CONTACT</button>
       </form>
-    )
-  }
+  )
 }
 
 export default ContactForm
