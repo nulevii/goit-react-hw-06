@@ -14,12 +14,12 @@ function PhoneBook (): JSX.Element {
   const [filter, setFilter] = useState('')
 
   useEffect((): void => {
-    const contacts = JSON.parse((localStorage.getItem('contacts')) ??
+    const localContacts = JSON.parse((localStorage.getItem('contacts')) ??
     '[{"id":"id-1","name":"Johnny Silverhand","number":"459-20-77"}]')
 
-    setContacts(contacts)
+    setContacts(localContacts)
     setFilter('')
-  })
+  }, [])
 
   const onAddContact = (name: string, number: string): void => {
     if (contacts.some((contact) => contact.name === name)) {
