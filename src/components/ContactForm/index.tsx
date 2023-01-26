@@ -1,10 +1,11 @@
 import React, { ChangeEvent, useState } from 'react'
 import style from '../style.module.css'
-import { addContact } from '../../../store/features/contacts/contactsSlice'
-import { useAppDispatch } from '../../../store/hooks'
+import { addContact } from '../../store/features/contacts/contactsSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
 
 function ContactForm (): JSX.Element {
   const dispatch = useAppDispatch()
+  const contacts = useAppSelector(state => state.contacts.contacts)
 
   const [name, setName] = useState('')
   const [number, setNumber] = useState('')
@@ -19,6 +20,10 @@ function ContactForm (): JSX.Element {
 
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault()
+    if (contacts.some((contact) => contact.name === name)) {
+      alert(`${name} is already in contacts.`)
+      return
+    }
     dispatch(addContact({ name, number }))
     setName('')
     setNumber('')

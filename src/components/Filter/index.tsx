@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react'
-import { useAppDispatch } from '../../../store/hooks'
-import { setFilter } from '../../../store/features/filter/filterSlice'
+import { useAppDispatch } from '../../store/hooks'
+import { setFilter } from '../../store/features/filter/filterSlice'
 
 import style from '../style.module.css'
 

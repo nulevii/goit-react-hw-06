@@ -1,7 +1,7 @@
 import React from 'react'
 import style from '../../style.module.css'
-import { deleteContact } from '../../../../store/features/contacts/contactsSlice'
-import { useAppDispatch } from '../../../../store/hooks'
+import { deleteContact } from '../../../store/features/contacts/contactsSlice'
+import { useAppDispatch } from '../../../store/hooks'
 function Contact (props: {
   name: string
   number: string

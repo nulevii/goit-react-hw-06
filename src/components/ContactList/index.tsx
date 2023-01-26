@@ -1,6 +1,6 @@
 import React from 'react'
 import style from '../style.module.css'
-import { useAppSelector } from '../../../store/hooks'
+import { useAppSelector } from '../../store/hooks'
 
 import Contact from './Contact'
 function ContactList (): JSX.Element {

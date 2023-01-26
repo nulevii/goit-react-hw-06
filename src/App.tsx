@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import style from './App.module.css'
-import PhoneBook from './components/PhoneBook'
+import React from 'react'
+import PhoneBook from './components/'
 function App (): JSX.Element {
   return (
     <PhoneBook />

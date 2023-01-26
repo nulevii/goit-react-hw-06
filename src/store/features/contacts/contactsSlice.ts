@@ -15,10 +15,6 @@ const contactsSlice = createSlice({
   initialState,
   reducers: {
     addContact: (state, { payload }: PayloadAction<{ name: string, number: string }>) => {
-      if (state.contacts.some((contact) => contact.name === payload.name)) {
-        alert(`${payload.name} is already in contacts.`)
-        return
-      }
       const id = nanoid()
       const contact: IContact = { ...payload, id }
       state.contacts.push(contact)
