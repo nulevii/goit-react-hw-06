@@ -7,7 +7,7 @@ interface IContact {
   number: string
 }
 const initialState: { contacts: IContact[] } = {
-  contacts: JSON.parse(localStorage.getItem('contacts') as string) ?? [{ id: 'id-1', name: 'Johnny Silverhand', number: '459-20-77' }]
+  contacts: [{ id: 'id-1', name: 'Johnny Silverhand', number: '459-20-77' }]
 }
 
 const contactsSlice = createSlice({
@@ -18,7 +18,6 @@ const contactsSlice = createSlice({
       const id = nanoid()
       const contact: IContact = { ...payload, id }
       state.contacts.push(contact)
-      localStorage.setItem('contacts', JSON.stringify(state.contacts))
     },
     deleteContact: (state, { payload }: PayloadAction<{ elementId: string }>) => {
       console.log('first')
@@ -26,7 +25,6 @@ const contactsSlice = createSlice({
         ({ id }) => id === payload.elementId
       )
       state.contacts.splice(contactId, 1)
-      localStorage.setItem('contacts', JSON.stringify(state.contacts))
     }
 
   }
